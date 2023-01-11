@@ -1,0 +1,17 @@
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\EducationProject.deps.json
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\EducationProject.runtimeconfig.json
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\EducationProject.dll
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\EducationProject.pdb
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\GodotSharp.dll
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.csproj.AssemblyReference.cache
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.GeneratedMSBuildEditorConfig.editorconfig
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.AssemblyInfoInputs.cache
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.AssemblyInfo.cs
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.csproj.CoreCompileInputs.cache
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.csproj.CopyComplete
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.dll
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\refint\EducationProject.dll
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.pdb
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\EducationProject.genruntimeconfig.cache
+F:\Workspace-Backedup\GodotProjects\1-Educational\EducationProject\.godot\mono\temp\obj\Debug\ref\EducationProject.dll

@@ -1,0 +1,7 @@
+DirectionalLight3D
+Camera3D
+CharacterBody3D
+WorldEnvironment
+CollisionShape3D
+StaticBody3D
+CSGBox3D
