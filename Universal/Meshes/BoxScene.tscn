@@ -1,9 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://desa4qpbneuji"]
+[gd_scene load_steps=7 format=3 uid="uid://desa4qpbneuji"]
 
 [ext_resource type="PackedScene" uid="uid://bsxiowoe1ck8i" path="res://Universal/Meshes/BoxMesh.glb" id="1"]
 
+[sub_resource type="Gradient" id="Gradient_lhfs7"]
+interpolation_mode = 1
+colors = PackedColorArray(0.466181, 0.466181, 0.466181, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j6wj3"]
+gradient = SubResource("Gradient_lhfs7")
+
+[sub_resource type="Gradient" id="Gradient_en5ej"]
+offsets = PackedFloat32Array(0, 0.566161, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.906725, 0.906725, 0.906725, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oslnd"]
+gradient = SubResource("Gradient_en5ej")
+
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_t30xa"]
 albedo_color = Color(0.937255, 0, 0.141176, 1)
+orm_texture = SubResource("GradientTexture1D_j6wj3")
+rim_texture = SubResource("GradientTexture1D_oslnd")
+clearcoat = 0.12
+clearcoat_roughness = 1.0
 
 [node name="BoxMesh" instance=ExtResource("1")]
 

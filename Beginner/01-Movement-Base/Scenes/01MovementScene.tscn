@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://1mog4venw8e"]
+[gd_scene load_steps=9 format=3 uid="uid://dvf0j0w6rdlvx"]
 
-[ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="1_2hhw0"]
-[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="2_lshrk"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
 albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
@@ -63,9 +62,8 @@ shape = SubResource("BoxShape3D_7c2nd")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-script = ExtResource("1_2hhw0")
 
-[node name="BoxMesh" parent="CharacterBody3D" instance=ExtResource("2")]
+[node name="BoxMesh" parent="CharacterBody3D" instance=ExtResource("2_lshrk")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
