@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://cen2raghfodb"]
+
+[ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="1_bqlp8"]
+[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="2_fm2de"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
+albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7c2nd"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_fimtr"]
+albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ultil"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8owuf"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7hbkl"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 18.23
+dof_blur_far_transition = 9.12
+dof_blur_near_enabled = true
+dof_blur_near_distance = 9.92
+dof_blur_near_transition = 2.72
+dof_blur_amount = 0.06
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kjk2r"]
+sky_top_color = Color(0.643137, 0.678431, 0.764706, 1)
+sky_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+ground_bottom_color = Color(0.443137, 0.458824, 0.533333, 1)
+ground_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+
+[sub_resource type="Sky" id="Sky_o0ja8"]
+sky_material = SubResource("ProceduralSkyMaterial_kjk2r")
+
+[sub_resource type="Environment" id="Environment_nkm8w"]
+background_mode = 2
+sky = SubResource("Sky_o0ja8")
+tonemap_mode = 3
+ssao_enabled = true
+ssao_radius = 3.03
+ssao_intensity = 1.26
+glow_enabled = true
+glow_intensity = 2.97
+glow_strength = 1.57
+adjustment_enabled = true
+adjustment_saturation = 1.5
+
+[node name="02CreationDeletion" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0.000583776, -10.034, 0.00122282)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 30, 0.00274906, -6.15608, -19.9881)
+material_override = SubResource("ORMMaterial3D_fimtr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_ultil")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.3912, 0)
+script = ExtResource("1_bqlp8")
+
+[node name="BoxMesh" parent="CharacterBody3D" instance=ExtResource("2_fm2de")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0254078, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_8owuf")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.97135, 0.237652, 0, -0.237652, 0.97135, 0, 5.30198, 11.0789)
+attributes = SubResource("CameraAttributesPractical_7hbkl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nkm8w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.487555, 0.873092, 0, -0.873092, 0.487555, 0, 0, 0)
+shadow_enabled = true

@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnf7cg7x6ndwl"]
+
+[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="1_ux37x"]
+
+[sub_resource type="Gradient" id="Gradient_e3dsb"]
+interpolation_mode = 1
+colors = PackedColorArray(0.466181, 0.466181, 0.466181, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kv7xe"]
+gradient = SubResource("Gradient_e3dsb")
+
+[sub_resource type="Gradient" id="Gradient_idlko"]
+offsets = PackedFloat32Array(0, 0.566161, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.906725, 0.906725, 0.906725, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_145gw"]
+gradient = SubResource("Gradient_idlko")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_jbs7j"]
+albedo_color = Color(0.317647, 0.505882, 0, 1)
+orm_texture = SubResource("GradientTexture1D_kv7xe")
+rim_texture = SubResource("GradientTexture1D_145gw")
+clearcoat = 0.12
+clearcoat_roughness = 1.0
+
+[node name="BoxMesh" instance=ExtResource("1_ux37x")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("ORMMaterial3D_jbs7j")

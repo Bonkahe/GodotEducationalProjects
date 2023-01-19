@@ -1,1 +1,4 @@
-res://Beginner/01-Movement-Base/Scenes/01MovementScene.tscn
+res://Beginner/02-CreationandDeletion/Scenes/02CreationDeletionScene.tscn
+res://Beginner/02-CreationandDeletion/PrefabScenes/SpawnedBox.tscn
+res://Beginner/02-CreationandDeletion/Code/GDScript/Spawner.gd
+res://Universal/Meshes/BoxScene.tscn

@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "jtYRq7Yvs8Es34Y+VnBdm2AygFOL+KbmP8YWd6miKytdZgBsIrw0e+nebXlZi1M/5v5dOO20c4eqk2k87PSIcg==",
+  "dgSpecHash": "v05+mLDqWRn9gvpl8E4miQ0nAg9KYWu7Ok2CdaU0efIw4BRn3aigs+s8z8NRlUgipYikGnjRpJtq7zRMxBj+pg==",
   "success": true,
-  "projectFilePath": "F:\\WORKSPACE-BACKEDUP\\GODOTPROJECTS\\1-EDUCATIONAL\\EDUCATIONPROJECT\\EducationProject.csproj",
+  "projectFilePath": "F:\\Workspace-Backedup\\GodotProjects\\1-Educational\\EducationProject\\EducationProject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\bonka\\.nuget\\packages\\godot.sourcegenerators\\4.0.0-beta.10\\godot.sourcegenerators.4.0.0-beta.10.nupkg.sha512",
-    "C:\\Users\\bonka\\.nuget\\packages\\godotsharp\\4.0.0-beta.10\\godotsharp.4.0.0-beta.10.nupkg.sha512",
-    "C:\\Users\\bonka\\.nuget\\packages\\godotsharpeditor\\4.0.0-beta.10\\godotsharpeditor.4.0.0-beta.10.nupkg.sha512"
+    "F:\\Workspace-Backedup\\GodotProjects\\0-GodotEditor\\EngineCache\\Godot_v4.0-beta11_mono_win64\\editor_data\\mono\\GodotNuGetFallbackFolder\\godot.sourcegenerators\\4.0.0-beta.11\\godot.sourcegenerators.4.0.0-beta.11.nupkg.sha512",
+    "F:\\Workspace-Backedup\\GodotProjects\\0-GodotEditor\\EngineCache\\Godot_v4.0-beta11_mono_win64\\editor_data\\mono\\GodotNuGetFallbackFolder\\godotsharp\\4.0.0-beta.11\\godotsharp.4.0.0-beta.11.nupkg.sha512",
+    "F:\\Workspace-Backedup\\GodotProjects\\0-GodotEditor\\EngineCache\\Godot_v4.0-beta11_mono_win64\\editor_data\\mono\\GodotNuGetFallbackFolder\\godotsharpeditor\\4.0.0-beta.11\\godotsharpeditor.4.0.0-beta.11.nupkg.sha512"
   ],
   "logs": []
 }
