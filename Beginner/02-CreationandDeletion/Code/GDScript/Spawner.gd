@@ -13,7 +13,7 @@ func _ready():
 func  _input(inputEvent):
 	if (inputEvent.is_action_pressed("mouse_left_click")):
 		var spawnedNode = NodeToSpawn.instantiate() as Node3D;
-		get_tree().root.add_child(spawnedNode);
+		get_tree().root.get_child(0).add_child(spawnedNode);
 		spawnedNode.global_position = SpawnLocation.global_position;
 		spawnedNode.global_rotation = SpawnLocation.global_rotation;
 		

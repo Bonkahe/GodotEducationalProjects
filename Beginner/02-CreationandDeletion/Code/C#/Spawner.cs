@@ -19,7 +19,7 @@ public partial class Spawner : Node
 		if (inputEvent.IsActionPressed("mouse_left_click"))
 		{
 			Node3D spawnedNode = NodeToSpawn.Instantiate() as Node3D;
-			GetTree().Root.AddChild(spawnedNode);
+			GetTree().Root.GetChild(0).AddChild(spawnedNode);
 
 			spawnedNode.GlobalPosition = SpawnLocation.GlobalPosition;
 			spawnedNode.GlobalRotation = SpawnLocation.GlobalRotation;

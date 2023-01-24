@@ -1,4 +1,2 @@
-res://Beginner/02-CreationandDeletion/Scenes/02CreationDeletionScene.tscn
-res://Beginner/02-CreationandDeletion/PrefabScenes/SpawnedBox.tscn
-res://Beginner/02-CreationandDeletion/Code/GDScript/Spawner.gd
-res://Universal/Meshes/BoxScene.tscn
+res://Beginner/03-Raycasting/Scenes/03RaycastingScene.tscn
+res://Beginner/03-Raycasting/Code/GDScript/CameraCollider.gd

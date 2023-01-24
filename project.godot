@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="EducationProject"
-config/description="Enter an interesting project description here!"
-run/main_scene="res://Beginner/02-CreationandDeletion/Scenes/02CreationDeletionScene.tscn"
+config/description="Godot tutorial Series"
+run/main_scene="res://Beginner/03-Raycasting/Scenes/03RaycastingScene.tscn"
 config/features=PackedStringArray("4.0", "C#")
 config/icon="res://icon.png"
 
@@ -23,6 +23,7 @@ project/assembly_name="EducationProject"
 [editor]
 
 movie_writer/movie_file="E:/Videos/ObsRecordings/GodotEducation/.avi"
+export/convert_text_resources_to_binary=true
 
 [input]
 
