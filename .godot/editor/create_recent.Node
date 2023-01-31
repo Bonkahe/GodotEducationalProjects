@@ -1,10 +1,13 @@
-RayCast3D
-Node3D
+MeshInstance3D
+OmniLight3D
 Node
+Node3D
+CSGCylinder3D
+CSGBox3D
+RayCast3D
 DirectionalLight3D
 Camera3D
 CharacterBody3D
 WorldEnvironment
 CollisionShape3D
 StaticBody3D
-CSGBox3D

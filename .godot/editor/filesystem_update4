@@ -1,2 +1,5 @@
-res://Beginner/03-Raycasting/Scenes/03RaycastingScene.tscn
-res://Beginner/03-Raycasting/Code/GDScript/CameraCollider.gd
+res://Beginner/05-Raycasting-Part2/Scenes/04RaycastingScene.tscn
+res://Beginner/05-Raycasting-Part2-Base/Scenes/05RaycastingScene.tscn
+res://Beginner/04-Materials/Scenes/04Materialscene.tscn
+res://Beginner/04-Materials/Materials/NoiseTest.tres
+res://Beginner/04-Materials/Materials/NewMaterial.tres

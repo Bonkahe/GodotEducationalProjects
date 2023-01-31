@@ -1,0 +1,10 @@
+[gd_resource type="FastNoiseLite" format=3 uid="uid://1s8qohu0ipsl"]
+
+[resource]
+seed = 10
+frequency = 0.014
+fractal_gain = 0.604
+fractal_weighted_strength = 0.16
+domain_warp_enabled = true
+domain_warp_amplitude = 39.571
+domain_warp_fractal_gain = 0.312

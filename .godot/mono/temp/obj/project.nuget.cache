@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qoIoFtr1FBQfiwliYdDQj+RkqQRtqFgIxf5KjHioZ9Oz+fL0dlzqBcGaTI50CBVIisgNoUvhuUMwJYZ84q6Dow==",
+  "dgSpecHash": "pN7JPldGW7JvqGH1GJGRcX0L3iFDo66pJ80Wd88kvFo9E8GzMgWkrzvBGJYtB9fPk1u0d64K5al12pXUz6AlXw==",
   "success": true,
-  "projectFilePath": "F:\\Workspace-Backedup\\GodotProjects\\1-Educational\\EducationProject\\EducationProject.csproj",
+  "projectFilePath": "F:\\WORKSPACE-BACKEDUP\\GODOTPROJECTS\\1-EDUCATIONAL\\EDUCATIONPROJECT\\EducationProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bonka\\.nuget\\packages\\godot.sourcegenerators\\4.0.0-beta.14\\godot.sourcegenerators.4.0.0-beta.14.nupkg.sha512",
     "C:\\Users\\bonka\\.nuget\\packages\\godotsharp\\4.0.0-beta.14\\godotsharp.4.0.0-beta.14.nupkg.sha512",

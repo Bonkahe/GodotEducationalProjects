@@ -27,7 +27,7 @@ public partial class CameraCollider : Node3D
 			cameraNode.GlobalPosition = rayCast3D.ToGlobal(rayCast3D.TargetPosition);
 		}
 
-		RayCast();
+		//RayCast();
 	}
 
 	private void RayCast()
