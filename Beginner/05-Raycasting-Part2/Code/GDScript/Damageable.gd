@@ -1,5 +1,5 @@
-extends StaticBody3D
-class_name TargetController
+extends Node
+class_name Damageable
 
 @export
 var MeshReference: GeometryInstance3D;

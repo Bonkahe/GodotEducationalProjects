@@ -1,5 +1,4 @@
-res://Beginner/05-Raycasting-Part2/Scenes/04RaycastingScene.tscn
-res://Beginner/05-Raycasting-Part2-Base/Scenes/05RaycastingScene.tscn
-res://Beginner/04-Materials/Scenes/04Materialscene.tscn
-res://Beginner/04-Materials/Materials/NoiseTest.tres
-res://Beginner/04-Materials/Materials/NewMaterial.tres
+res://Beginner/05-Raycasting-Part2/Scenes/05RaycastingScene.tscn
+res://Beginner/05-Raycasting-Part2/Code/GDScript/TimerRemoval.gd
+res://Beginner/05-Raycasting-Part2/Code/GDScript/Damageable.gd
+res://Beginner/05-Raycasting-Part2/Code/GDScript/BlasterController.gd

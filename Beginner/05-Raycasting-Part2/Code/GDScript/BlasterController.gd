@@ -1,27 +1,28 @@
 extends Node
 
+
 @export
-var rayCast3D: RayCast3D;
+var rayCastController: RayCast3D;
+
 @export
 var laserEffect: PackedScene;
 
-
 func _input(inputEvent):
 	if (inputEvent.is_action_pressed("mouse_left_click")):
-		FireBlaster();
+		FireShot();
 		
-func FireBlaster():
+func FireShot():
 	var newLaser = laserEffect.instantiate() as Node3D;
 	
 	add_child(newLaser);
-	newLaser.global_position = rayCast3D.global_position;
-	newLaser.global_rotation = rayCast3D.global_rotation;
+	newLaser.global_position = rayCastController.global_position;
+	newLaser.global_rotation = rayCastController.global_rotation;
 	
-	if (rayCast3D.is_colliding()):
-		var impactPoint = rayCast3D.get_collision_point();
+	if (rayCastController.is_colliding()):
+		var impactPoint = rayCastController.get_collision_point();
 		newLaser.scale = Vector3(newLaser.scale.x, newLaser.scale.y, impactPoint.distance_to(newLaser.global_position));
-		var collider = rayCast3D.get_collider();
-		if collider is TargetController:
+		var collider = (rayCastController.get_collider() as Node).get_node_or_null("Damageable");
+		if (collider != null && collider is Damageable):
 			collider.OnHit();
 	else:
-		newLaser.scale = Vector3(newLaser.scale.x, newLaser.scale.y, rayCast3D.target_position.length());
+		newLaser.scale = Vector3(newLaser.scale.x, newLaser.scale.y, rayCastController.target_position.length());

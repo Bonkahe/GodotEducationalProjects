@@ -1,15 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://cnyes8dn6y83c"]
+[gd_scene load_steps=18 format=3 uid="uid://cnyes8dn6y83c"]
 
 [ext_resource type="Script" path="res://Universal/Code/Helpers/MouseLock.cs" id="1_ju2ku"]
 [ext_resource type="Material" uid="uid://bmrm26q76jjub" path="res://Beginner/05-Raycasting-Part2/Materials/BaddieStandard.tres" id="2_hfluq"]
-[ext_resource type="Script" path="res://Beginner/05-Raycasting-Part2/Code/GDScript/TargetController.gd" id="3_8u5m0"]
+[ext_resource type="Script" path="res://Beginner/05-Raycasting-Part2/Code/C#/Damageable.cs" id="3_dtl7u"]
 [ext_resource type="Material" uid="uid://b2phictxmh82m" path="res://Beginner/05-Raycasting-Part2/Materials/BaddieHit.tres" id="4_o26n4"]
 [ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="5_km4e2"]
 [ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="6_altbs"]
 [ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/C#/CameraPivot.cs" id="7_wavut"]
 [ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/C#/CameraCollider.cs" id="8_onxi0"]
-[ext_resource type="Script" path="res://Beginner/05-Raycasting-Part2/Code/GDScript/BlasterController.gd" id="9_00a0s"]
-[ext_resource type="PackedScene" uid="uid://dp6mo47eow3p" path="res://Beginner/05-Raycasting-Part2/Scenes/laser.tscn" id="10_8qqnw"]
+[ext_resource type="Script" path="res://Beginner/05-Raycasting-Part2/Code/C#/BlasterController.cs" id="9_tio8f"]
+[ext_resource type="PackedScene" path="res://Beginner/05-Raycasting-Part2/Scenes/laser.tscn" id="10_8qqnw"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
 albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
@@ -26,9 +26,6 @@ dof_blur_near_enabled = true
 dof_blur_near_distance = 3.07
 dof_blur_near_transition = 2.72
 dof_blur_amount = 0.04
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpqux"]
-albedo_color = Color(0.603922, 0.133333, 0, 1)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kjk2r"]
 sky_top_color = Color(0.643137, 0.678431, 0.764706, 1)
@@ -74,18 +71,19 @@ material_override = SubResource("ORMMaterial3D_ly54c")
 shape = SubResource("BoxShape3D_7c2nd")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(3.36641, 0, 0, 0, 5, 0, 0, 0, 4.10394, -15.4095, -6.16329, 4.50197)
+transform = Transform3D(3.36641, 0, 0, 0, 5, 0, 0, 0, 4.10394, -15.4123, -6.15789, 4.49869)
 material_override = ExtResource("2_hfluq")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D3" node_paths=PackedStringArray("MeshReference")]
-script = ExtResource("3_8u5m0")
-MeshReference = NodePath("..")
-BaseMaterial = ExtResource("2_hfluq")
-HitMaterial = ExtResource("4_o26n4")
-FlashDuration = 0.2
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D3"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D3/StaticBody3D"]
 shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="Damageable" type="Node" parent="CSGBox3D3/StaticBody3D" node_paths=PackedStringArray("MeshReference")]
+script = ExtResource("3_dtl7u")
+MeshReference = NodePath("../..")
+BaseMaterial = ExtResource("2_hfluq")
+HitMaterial = ExtResource("4_o26n4")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(0.247625, 0, 0.968856, 0, 1, 0, -0.968856, 0, 0.247625, 0.0751457, -8.3912, 5.48873)
@@ -121,18 +119,17 @@ standOffDistance = 0.5
 CameraColliderLayers = 1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D/CameraPivot"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 0.995532, 0.0944211, 0, -0.0944211, 0.995533, 0.972512, -0.955139, -0.904613)
-material_override = SubResource("StandardMaterial3D_xpqux")
-size = Vector3(0.300787, 0.606802, 1.72596)
+transform = Transform3D(1, 0, 0, 0, 0.994493, 0.104806, 0, -0.104806, 0.994493, 0.970976, -1.0516, -0.82544)
+size = Vector3(0.254813, 0.425346, 1.79341)
 
-[node name="RayCast3D2" type="RayCast3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 2.79397e-09, -2.98023e-08, -3.25963e-09, 1, 9.53674e-07, 0.128575, -0.916508)
-target_position = Vector3(0, 0, -20)
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
+transform = Transform3D(1, -3.72529e-09, 0, 0, 1, 1.16415e-08, 0, -2.79397e-09, 1, 0, 0, -1)
+target_position = Vector3(0, 0, -100)
 
-[node name="Node" type="Node" parent="CharacterBody3D/CameraPivot/CSGBox3D" node_paths=PackedStringArray("rayCast3D")]
-script = ExtResource("9_00a0s")
-rayCast3D = NodePath("../RayCast3D2")
-laserEffect = ExtResource("10_8qqnw")
+[node name="BlasterController" type="Node" parent="CharacterBody3D/CameraPivot/CSGBox3D" node_paths=PackedStringArray("RayCastController")]
+script = ExtResource("9_tio8f")
+RayCastController = NodePath("../RayCast3D")
+LaserEffect = ExtResource("10_8qqnw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nkm8w")
