@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Damageable : Node
+public partial class DamageableNode : Node
 {
 	[Export] public GeometryInstance3D MeshReference;
 	[Export] public Material BaseMaterial;
@@ -11,7 +11,7 @@ public partial class Damageable : Node
 
 
 
-    public void OnHit()
+    public virtual void OnHit()
 	{
 		MeshReference.MaterialOverride = HitMaterial;
 		SceneTreeTimer timer = GetTree().CreateTimer(FlashDuration);

@@ -22,7 +22,7 @@ func FireShot():
 		var impactPoint = rayCastController.get_collision_point();
 		newLaser.scale = Vector3(newLaser.scale.x, newLaser.scale.y, impactPoint.distance_to(newLaser.global_position));
 		var collider = (rayCastController.get_collider() as Node).get_node_or_null("Damageable");
-		if (collider != null && collider is Damageable):
+		if (collider != null && collider is DamageableNode):
 			collider.OnHit();
 	else:
 		newLaser.scale = Vector3(newLaser.scale.x, newLaser.scale.y, rayCastController.target_position.length());

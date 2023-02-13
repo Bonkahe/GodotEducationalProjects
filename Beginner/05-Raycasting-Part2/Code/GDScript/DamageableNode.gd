@@ -1,5 +1,5 @@
 extends Node
-class_name Damageable
+class_name DamageableNode
 
 @export
 var MeshReference: GeometryInstance3D;

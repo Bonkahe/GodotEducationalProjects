@@ -28,7 +28,7 @@ public partial class BlasterController : Node
 			Vector3 impactPoint = RayCastController.GetCollisionPoint();
 			newLaser.Scale = new Vector3(newLaser.Scale.x, newLaser.Scale.y, impactPoint.DistanceTo(newLaser.GlobalPosition));
 
-			if ((RayCastController.GetCollider() as Node)?.GetNodeOrNull<Damageable>("Damageable") is Damageable hitTarget)
+			if ((RayCastController.GetCollider() as Node)?.GetNodeOrNull<DamageableNode>("Damageable") is DamageableNode hitTarget)
 			{
 				hitTarget.OnHit();
 			}
