@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyy612p8xym6n"]
+
+[ext_resource type="Script" path="res://Beginner/05-Raycasting-Part2/Code/GDScript/TimerRemoval.gd" id="1_tuicr"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ea44b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsdxe"]
+emission_enabled = true
+emission = Color(0.741176, 0.623529, 0, 1)
+emission_energy_multiplier = 3.6
+
+[node name="Laser" type="Node3D"]
+script = ExtResource("1_tuicr")
+Duration = 0.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, -2.18557e-08, 0.2, 0, -0.5, -8.74228e-09, 0, 2.18557e-08, -0.5)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_ea44b")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_tsdxe")

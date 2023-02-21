@@ -12,7 +12,7 @@ config_version=5
 
 config/name="EducationProject"
 config/description="Godot tutorial Series"
-run/main_scene="res://Beginner/06-Tweening/Scenes/06TweeningScene.tscn"
+run/main_scene="res://Beginner/07-Audio/Scenes/07AudioScene.tscn"
 config/features=PackedStringArray("4.0", "C#")
 config/icon="res://icon.png"
 
