@@ -1,3 +1,4 @@
-res://Beginner/07-Audio/Scenes/07AudioScene.tscn
-res://Beginner/07-Audio/Code/GDScript/BlasterControllerv2.gd
 res://default_bus_layout.tres
+res://Beginner/08-Groups-Signals/Scenes/08GroupAndSignalsScene.tscn
+res://Beginner/08-Groups-Signals/Code/GDScript/PointsContainer.gd
+res://Beginner/08-Groups-Signals/Code/GDScript/DamageableEventNode.gd

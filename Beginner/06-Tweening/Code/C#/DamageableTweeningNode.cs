@@ -9,8 +9,6 @@ public partial class DamageableTweeningNode : DamageableNode
 
     [Export] public float RotationDegrees { get; set; }
 
-
-
 	private Vector3 OriginalPosition;
 
     private Vector3 OriginalRotation;
@@ -88,6 +86,7 @@ public partial class DamageableTweeningNode : DamageableNode
             "scale",
             OriginalScale,
             FlashDuration / 2);
+
 
         newTween.Connect("finished", new Callable(this, "OnReset"));
 
