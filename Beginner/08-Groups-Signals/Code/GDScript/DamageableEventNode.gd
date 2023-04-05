@@ -26,8 +26,8 @@ var newTween : Tween;
 
 
 func _ready():
-	OriginalPosition = MeshReference.global_position;
-	OriginalRotation = MeshReference.global_rotation_degrees;
+	OriginalPosition = MeshReference.position;
+	OriginalRotation = MeshReference.rotation_degrees;
 	OriginalScale = MeshReference.scale;
 
 func OnDestroyed():
@@ -52,8 +52,8 @@ func OnHit():
 	
 	newTween.tween_property(
 		MeshReference,
-		"global_position",
-		MeshReference.global_position + Vector3(0,1,0),
+		"position",
+		MeshReference.position + Vector3(0,1,0),
 		FlashDuration / 2);
 	
 	var rng = RandomNumberGenerator.new();
@@ -62,8 +62,8 @@ func OnHit():
 	newTween.parallel();
 	newTween.tween_property(
 		MeshReference,
-		"global_rotation_degrees",
-		MeshReference.global_rotation_degrees 
+		"rotation_degrees",
+		MeshReference.rotation_degrees 
 			+ Vector3(
 				wrapf(rng.randf_range(-RotationDegrees, RotationDegrees), -180, 180),
 				wrapf(rng.randf_range(-RotationDegrees, RotationDegrees), -180, 180),
@@ -81,14 +81,14 @@ func OnHit():
 	
 	newTween.tween_property(
 		MeshReference,
-		"global_position",
+		"position",
 		OriginalPosition,
 		FlashDuration / 2);
 	
 	newTween.parallel();
 	newTween.tween_property(
 		MeshReference,
-		"global_rotation_degrees",
+		"rotation_degrees",
 		OriginalRotation,
 		FlashDuration / 2);
 	

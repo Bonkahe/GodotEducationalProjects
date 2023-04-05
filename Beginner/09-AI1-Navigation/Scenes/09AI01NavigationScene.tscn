@@ -1,0 +1,467 @@
+[gd_scene load_steps=26 format=3 uid="uid://b3a5jjtytfe2p"]
+
+[ext_resource type="Script" path="res://Universal/Code/Helpers/MouseLock.gd" id="1_hitmf"]
+[ext_resource type="Script" path="res://Beginner/09-AI1-Navigation/Code/C#/EnemyNavigationControl.cs" id="2_hrsqu"]
+[ext_resource type="Material" uid="uid://bmrm26q76jjub" path="res://Beginner/05-Raycasting-Part2/Materials/BaddieStandard.tres" id="2_vhv0x"]
+[ext_resource type="Script" path="res://Beginner/08-Groups-Signals/Code/GDScript/DamageableEventNode.gd" id="3_vhkna"]
+[ext_resource type="Material" uid="uid://xsxnx6oi70qn" path="res://Universal/Materials/BaddieStandard.tres" id="4_kaqnc"]
+[ext_resource type="Material" uid="uid://3q7d66k06i7t" path="res://Universal/Materials/BaddieHit.tres" id="5_5t85t"]
+[ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="6_beopg"]
+[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="7_o0n2w"]
+[ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/GDScript/CameraPivot.gd" id="8_kt332"]
+[ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/GDScript/CameraCollider.gd" id="9_1euxb"]
+[ext_resource type="Script" path="res://Beginner/07-Audio/Code/GDScript/BlasterControllerv2.gd" id="10_mh5vv"]
+[ext_resource type="Script" path="res://Beginner/08-Groups-Signals/Code/GDScript/PointsContainer.gd" id="11_oq5hb"]
+[ext_resource type="AudioStream" uid="uid://bgs2jm74tnwkq" path="res://Beginner/07-Audio/AudioClips/BlasterClip_NoxSound.wav" id="11_svytc"]
+[ext_resource type="PackedScene" uid="uid://dg6qanf3qnjuk" path="res://Universal/Meshes/laser.tscn" id="12_dqluy"]
+[ext_resource type="AudioStream" uid="uid://ch38je6e341s1" path="res://Beginner/07-Audio/AudioClips/AmbientWind_NoxSound.wav" id="14_g06xt"]
+[ext_resource type="AudioStream" uid="uid://b3phsx4jisb37" path="res://Beginner/07-Audio/AudioClips/AmbientMusic_Unfa.wav" id="15_0pufu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ygepp"]
+size = Vector3(3.10831, 5.32828, 3.50174)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8owuf"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7hbkl"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 67.09
+dof_blur_far_transition = 3.66
+dof_blur_near_enabled = true
+dof_blur_near_distance = 3.07
+dof_blur_near_transition = 2.72
+dof_blur_amount = 0.04
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kjk2r"]
+sky_top_color = Color(0.643137, 0.678431, 0.764706, 1)
+sky_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+ground_bottom_color = Color(0.443137, 0.458824, 0.533333, 1)
+ground_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+
+[sub_resource type="Sky" id="Sky_o0ja8"]
+sky_material = SubResource("ProceduralSkyMaterial_kjk2r")
+
+[sub_resource type="Environment" id="Environment_nkm8w"]
+background_mode = 2
+sky = SubResource("Sky_o0ja8")
+tonemap_mode = 3
+ssao_enabled = true
+ssao_radius = 3.03
+ssao_intensity = 1.26
+glow_enabled = true
+glow_intensity = 2.97
+glow_strength = 1.57
+adjustment_enabled = true
+adjustment_saturation = 1.5
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_oa2gd"]
+vertices = PackedVector3Array(-3, -3.25, -13.4874, -3, -3.25, -6.9874, 3.25, -3.25, -6.9874, 3.25, -3.25, -13.4874, 3.25, -3.25, -26.4874, 3.25, -3.25, -32.9874, -3, -3.25, -32.9874, -3, -3.25, -26.4874, -3, -3.25, -19.9874, -3, -3.25, -13.4874, 3.25, -3.25, -13.4874, 3.25, -3.25, -19.9874, 3.25, -3.25, -19.9874, 3.25, -3.25, -26.4874, -3, -3.25, -26.4874, -3, -3.25, -19.9874, -13, -9, -6.4874, -7, -9, -6.4874, -7, -9, -13.2374, -13, -9, -13.2374, 7.25, -9, -5.9874, 13, -9, -5.7374, 13, -9, -13.2374, 7.25, -9, -13.2374, -5.25, -9, 1.0126, -3.5, -9, 1.0126, -3.5, -9, -2.7374, -5.25, -9, -2.7374, -13, -9, 4.7626, -7, -9, 4.7626, -7, -9, 2.7626, -6.5, -9, 1.7626, -5.25, -9, 1.0126, -5.25, -9, -2.7374, -6.5, -9, -3.4874, -7, -9, -4.4874, -7, -9, -6.4874, -13, -9, -6.4874, -7, -9, 2.7626, -6.5, -9, 1.7626, -6.5, -9, -3.4874, -7, -9, -4.4874, -13, -9, -6.4874, -13, -9, 4.7626, 3.75, -9, -2.7374, 3.75, -9, 1.0126, 6.5, -9, 1.5126, 6.5, -9, -3.2374, 7.25, -9, -4.4874, 6.5, -9, -3.2374, 6.5, -9, 1.5126, 7.25, -9, 2.7626, 13, -9, 4.0126, 13, -9, -5.7374, 7.25, -9, 2.7626, 7.25, -9, 4.2626, 13, -9, 4.0126, 13, -9, -5.7374, 7.25, -9, -5.9874, 7.25, -9, -4.4874, -3.5, -9, 1.0126, 3.75, -9, 1.0126, 3.75, -9, -2.7374, -3.5, -9, -2.7374, 13, -9, 11.0126, 13, -9, 4.0126, 7.25, -9, 4.2626, 7.25, -9, 11.0126, 7.25, -9, 18.0126, 7.25, -9, 25.0126, 13, -9, 25.0126, 13, -9, 18.0126, 7.25, -9, 32.0126, 13, -9, 32.2626, 13, -9, 25.0126, 7.25, -9, 25.0126, 13, -9, 18.0126, 13, -9, 11.0126, 7.25, -9, 11.0126, 7.25, -9, 18.0126, -7, -9, 11.2626, -7, -9, 4.7626, -13, -9, 4.7626, -13, -9, 11.2626, -7, -9, 18.0126, -7, -9, 11.2626, -13, -9, 11.2626, -13, -9, 18.0126, -13, -9, 31.5126, -7, -9, 31.5126, -7, -9, 24.7626, -13, -9, 24.7626, -13, -9, 18.0126, -13, -9, 24.7626, -7, -9, 24.7626, -7, -9, 18.0126, 3.25, -3.25, 11.5126, 3.25, -3.25, 5.0126, -3, -3.25, 5.0126, -3, -3.25, 11.5126, -3, -3.25, 24.5126, -3, -3.25, 31.2626, 3.25, -3.25, 31.2626, 3.25, -3.25, 24.5126, 3.25, -3.25, 18.0126, 3.25, -3.25, 11.5126, -3, -3.25, 11.5126, -3, -3.25, 18.0126, -3, -3.25, 18.0126, -3, -3.25, 24.5126, 3.25, -3.25, 24.5126, 3.25, -3.25, 18.0126, -7, -9, 33.5126, -7, -9, 31.5126, -13, -9, 31.5126, -6.5, -9, 34.5126, -7, -9, 33.5126, -13, -9, 31.5126, -4, -9, 43.0126, -3.75, -9, 35.2626, -5.25, -9, 35.2626, -5.25, -9, 35.2626, -6.5, -9, 34.5126, -13, -9, 31.5126, -13, -9, 43.0126, -4, -9, 43.0126, 13, -9, 32.2626, 7.25, -9, 32.0126, 7.25, -9, 33.5126, 13, -9, 32.2626, 7.25, -9, 33.5126, 6.5, -9, 34.7626, 4.25, -9, 43.0126, 13, -9, 43.0126, 6.5, -9, 34.7626, 4, -9, 35.2626, 4.25, -9, 43.0126, -4, -9, 43.0126, 4.25, -9, 43.0126, 4, -9, 35.2626, -3.75, -9, 35.2626)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(23, 22, 20), PackedInt32Array(20, 22, 21), PackedInt32Array(27, 26, 24), PackedInt32Array(24, 26, 25), PackedInt32Array(30, 29, 28), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(37, 36, 35), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(41, 38, 43), PackedInt32Array(41, 43, 42), PackedInt32Array(44, 47, 45), PackedInt32Array(45, 47, 46), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 51), PackedInt32Array(51, 48, 53), PackedInt32Array(51, 53, 52), PackedInt32Array(56, 55, 54), PackedInt32Array(59, 58, 57), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 61), PackedInt32Array(67, 66, 64), PackedInt32Array(64, 66, 65), PackedInt32Array(71, 70, 68), PackedInt32Array(68, 70, 69), PackedInt32Array(75, 74, 72), PackedInt32Array(72, 74, 73), PackedInt32Array(79, 78, 76), PackedInt32Array(76, 78, 77), PackedInt32Array(83, 82, 80), PackedInt32Array(80, 82, 81), PackedInt32Array(87, 86, 84), PackedInt32Array(84, 86, 85), PackedInt32Array(91, 90, 88), PackedInt32Array(88, 90, 89), PackedInt32Array(95, 94, 92), PackedInt32Array(92, 94, 93), PackedInt32Array(99, 98, 96), PackedInt32Array(96, 98, 97), PackedInt32Array(103, 102, 100), PackedInt32Array(100, 102, 101), PackedInt32Array(107, 106, 104), PackedInt32Array(104, 106, 105), PackedInt32Array(111, 110, 108), PackedInt32Array(108, 110, 109), PackedInt32Array(114, 113, 112), PackedInt32Array(116, 115, 117), PackedInt32Array(120, 119, 118), PackedInt32Array(122, 121, 123), PackedInt32Array(123, 121, 125), PackedInt32Array(123, 125, 124), PackedInt32Array(128, 127, 126), PackedInt32Array(130, 129, 131), PackedInt32Array(131, 129, 133), PackedInt32Array(131, 133, 132), PackedInt32Array(136, 135, 134), PackedInt32Array(140, 139, 137), PackedInt32Array(137, 139, 138)]
+agent_radius = 2.0
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
+albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7c2nd"]
+
+[node name="09AI01Navigation" type="Node3D"]
+script = ExtResource("1_hitmf")
+
+[node name="Enemy" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7115, -9.17192, -3.32311)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy2" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7887, -9.17192, 11.5216)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy2/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy2"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy3" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2706, -9.17192, 20.9398)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy3/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy3"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy4" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.44494, -9.17192, 1.28155)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy4/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy4"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy5" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.616552, -2.55698, 14.5547)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy5/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy5"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy6" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6166, -8.76593, 14.5547)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy6/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy6"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy7" type="Node3D" parent="." node_paths=PackedStringArray("TargetBody", "NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56345, -8.76593, 37.2053)
+script = ExtResource("2_hrsqu")
+TargetBody = NodePath("../CharacterBody3D")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy7/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_vhkna")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_kaqnc")
+HitMaterial = ExtResource("5_5t85t")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("2_vhv0x")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy7"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.247625, 0, 0.968856, 0, 1, 0, -0.968856, 0, 0.247625, 6.97198, -8.3912, 0.0500264)
+collision_layer = 2
+script = ExtResource("6_beopg")
+mouseSensitivity = 0.3
+
+[node name="BoxMesh" parent="CharacterBody3D" instance=ExtResource("7_o0n2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0254078, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_8owuf")
+
+[node name="CameraPivot" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29956, 0)
+script = ExtResource("8_kt332")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.97135, 0.237652, 0, -0.237652, 0.97135, 1.50056, 3.76422, 10.9406)
+attributes = SubResource("CameraAttributesPractical_7hbkl")
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.943495, 0.331387, 0, -0.331387, 0.943495, 1.50056, -0.18728, 0.0657791)
+target_position = Vector3(0, 0, 9.263)
+
+[node name="CameraCollider" type="Node3D" parent="CharacterBody3D/CameraPivot" node_paths=PackedStringArray("cameraNode", "rayCast3D")]
+script = ExtResource("9_1euxb")
+cameraNode = NodePath("../Camera3D")
+rayCast3D = NodePath("../RayCast3D")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.994493, 0.104806, 0, -0.104806, 0.994493, 0.970976, -1.0516, -0.82544)
+size = Vector3(0.254813, 0.425346, 1.79341)
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
+transform = Transform3D(1, -3.72529e-09, 0, 0, 1, 1.16415e-08, 0, -2.79397e-09, 1, 0, 0, -1)
+target_position = Vector3(0, 0, -100)
+
+[node name="BlasterController" type="Node" parent="CharacterBody3D/CameraPivot/CSGBox3D" node_paths=PackedStringArray("BlasterAudio", "rayCastController")]
+script = ExtResource("10_mh5vv")
+BlasterAudio = NodePath("../AudioStreamPlayer3D")
+BlasterShotClip = ExtResource("11_svytc")
+MinBlasterPitchChange = 1.0
+MaxBlasterPitchChange = 1.2
+rayCastController = NodePath("../RayCast3D")
+laserEffect = ExtResource("12_dqluy")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
+stream = ExtResource("11_svytc")
+bus = &"Blaster"
+
+[node name="ScoreUIContainer" type="Control" parent="CharacterBody3D" node_paths=PackedStringArray("ScoreLabel", "VictoryLabel") groups=["ScoringGroup"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_oq5hb")
+ScoreLabel = NodePath("ScoreLabel")
+VictoryLabel = NodePath("VictoryLabel")
+
+[node name="ScoreLabel" type="Label" parent="CharacterBody3D/ScoreUIContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Score:0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="VictoryLabel" type="Label" parent="CharacterBody3D/ScoreUIContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Congratulations you won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nkm8w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.487555, 0.873092, 0, -0.873092, 0.487555, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_g06xt")
+autoplay = true
+bus = &"WorldAmb"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_0pufu")
+autoplay = true
+bus = &"MusicAmb"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_oa2gd")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, -10, 0)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, -10, 30)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 30, 0.000997734, -6.16742, -19.9874)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 30, 0.000997734, -6.16742, 18.084)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[connection signal="OnDestruction" from="Enemy/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy/NavigationAgent3D" to="Enemy" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy2/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy2/NavigationAgent3D" to="Enemy2" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy3/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy3/NavigationAgent3D" to="Enemy3" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy4/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy4/NavigationAgent3D" to="Enemy4" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy5/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy5/NavigationAgent3D" to="Enemy5" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy6/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy6/NavigationAgent3D" to="Enemy6" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy7/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy7/NavigationAgent3D" to="Enemy7" method="On_NavigationAgent3DVelocityComputed"]

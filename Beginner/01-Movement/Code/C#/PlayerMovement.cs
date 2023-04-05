@@ -17,7 +17,7 @@ public partial class PlayerMovement : CharacterBody3D
     {
         if (inputEvent is InputEventMouseMotion mouseMotion)
         {
-            Rotate(Vector3.Up, Mathf.DegToRad(-mouseMotion.Relative.x * mouseSensitivity));
+            Rotate(Vector3.Up, Mathf.DegToRad(-mouseMotion.Relative.X * mouseSensitivity));
         }
     }
 
@@ -39,7 +39,7 @@ public partial class PlayerMovement : CharacterBody3D
         }
 
 
-        Velocity = Transform.basis * new Vector3(movementInputVector.x, currentYVelocity, movementInputVector.y);
+        Velocity = Transform.Basis * new Vector3(movementInputVector.X, currentYVelocity, movementInputVector.Y);
 
         MoveAndSlide();
     }

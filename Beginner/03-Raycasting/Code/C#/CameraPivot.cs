@@ -19,7 +19,7 @@ public partial class CameraPivot : Node3D
 	{
 		if (inputEvent is InputEventMouseMotion mouseEvent)
 		{
-			Rotation = new Vector3(Mathf.Clamp(Rotation.x - Mathf.DegToRad(mouseEvent.Relative.y * mouseSensitivity), -angleLimitInRad, angleLimitInRad), Rotation.y, Rotation.z);
+			Rotation = new Vector3(Mathf.Clamp(Rotation.X - Mathf.DegToRad(mouseEvent.Relative.Y * mouseSensitivity), -angleLimitInRad, angleLimitInRad), Rotation.Y, Rotation.Z);
 		}
 	}
 }

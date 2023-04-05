@@ -1,5 +1,8 @@
-Button
+NavigationAgent3D
+NavigationRegion3D
+Node3D
 Label
+Button
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D
@@ -8,7 +11,6 @@ RayCast3D
 CSGBox3D
 MeshInstance3D
 OmniLight3D
-Node3D
 CSGCylinder3D
 DirectionalLight3D
 Camera3D

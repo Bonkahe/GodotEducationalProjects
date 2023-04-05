@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://1mog4venw8e"]
+[gd_scene load_steps=11 format=3 uid="uid://1mog4venw8e"]
 
 [ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="1_2hhw0"]
 [ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="2"]
+[ext_resource type="Script" path="res://Universal/Code/Helpers/FpsLabel.gd" id="3_vl2lt"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
 albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
@@ -82,3 +83,8 @@ environment = SubResource("Environment_nkm8w")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.487555, 0.873092, 0, -0.873092, 0.487555, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_vl2lt")

@@ -26,7 +26,7 @@ public partial class BlasterController : Node
 		if (RayCastController.IsColliding())
 		{
 			Vector3 impactPoint = RayCastController.GetCollisionPoint();
-			newLaser.Scale = new Vector3(newLaser.Scale.x, newLaser.Scale.y, impactPoint.DistanceTo(newLaser.GlobalPosition));
+			newLaser.Scale = new Vector3(newLaser.Scale.X, newLaser.Scale.Y, impactPoint.DistanceTo(newLaser.GlobalPosition));
 
 			if ((RayCastController.GetCollider() as Node)?.GetNodeOrNull<DamageableNode>("Damageable") is DamageableNode hitTarget)
 			{
@@ -35,7 +35,7 @@ public partial class BlasterController : Node
 		}
 		else
 		{
-            newLaser.Scale = new Vector3(newLaser.Scale.x, newLaser.Scale.y, RayCastController.TargetPosition.Length());
+            newLaser.Scale = new Vector3(newLaser.Scale.X, newLaser.Scale.Y, RayCastController.TargetPosition.Length());
         }
     }
 }
