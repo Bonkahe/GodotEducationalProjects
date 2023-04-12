@@ -1,3 +1,7 @@
+Node
+CollisionShape3D
+Area3D
+StaticBody3D
 NavigationAgent3D
 NavigationRegion3D
 Node3D
@@ -6,7 +10,6 @@ Button
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D
-Node
 RayCast3D
 CSGBox3D
 MeshInstance3D
@@ -16,5 +19,3 @@ DirectionalLight3D
 Camera3D
 CharacterBody3D
 WorldEnvironment
-CollisionShape3D
-StaticBody3D

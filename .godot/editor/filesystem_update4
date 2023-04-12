@@ -1,3 +1,6 @@
 res://default_bus_layout.tres
-res://Beginner/09-AI1-Navigation/Scenes/09AI01NavigationScene.tscn
+res://Beginner/10-AI2-Detection/Scenes/10AI02DetectionScene.tscn
 res://Beginner/09-AI1-Navigation/Code/GDScript/EnemyNavigationControl.gd
+res://Beginner/10-AI2-Detection/Code/GDScript/PlayerDetectionControl.gd
+res://Beginner/10-AI2-Detection/Code/GDScript/DetectionControl.gd
+res://Universal/Code/Helpers/MouseLock.gd

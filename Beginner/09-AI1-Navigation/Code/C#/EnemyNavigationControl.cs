@@ -12,7 +12,7 @@ public partial class EnemyNavigationControl : Node3D
 
 	public override void _Process(double delta)
 	{
-		if (TargetBody.GlobalPosition != LastPosition)
+		if (TargetBody != null && TargetBody.GlobalPosition != LastPosition)
 		{
 			LastPosition = TargetBody.GlobalPosition;
 			SetTarget(LastPosition);

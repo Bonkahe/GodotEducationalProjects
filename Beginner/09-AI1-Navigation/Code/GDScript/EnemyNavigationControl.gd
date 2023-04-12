@@ -1,7 +1,8 @@
 extends Node3D
+class_name EnemyNavigationControl
 
 @export
-var targetBody: Node3D;
+var TargetBody: Node3D;
 
 @export
 var movementSpeed: float = 4.0;
@@ -14,8 +15,8 @@ var lastPosition: Vector3;
 
 
 func _process(delta):
-	if (targetBody.global_position != lastPosition):
-		lastPosition = targetBody.global_position;
+	if (TargetBody != null && TargetBody.global_position != lastPosition):
+		lastPosition = TargetBody.global_position;
 		setTarget(lastPosition);
 
 func setTarget(movementTarget: Vector3):
