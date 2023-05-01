@@ -1,7 +1,9 @@
 Node
-CollisionShape3D
+GPUParticles3D
 Area3D
+CollisionShape3D
 StaticBody3D
+MeshInstance3D
 NavigationAgent3D
 NavigationRegion3D
 Node3D
@@ -12,7 +14,6 @@ AudioStreamPlayer
 AudioStreamPlayer3D
 RayCast3D
 CSGBox3D
-MeshInstance3D
 OmniLight3D
 CSGCylinder3D
 DirectionalLight3D

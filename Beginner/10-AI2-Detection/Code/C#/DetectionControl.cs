@@ -3,7 +3,7 @@ using System;
 
 public partial class DetectionControl : Node
 {
-    [Export] public EnemyNavigationControl enemyNavigationControl { get; set; }
+    [Export] public EnemyCoreControl enemyNavigationControl { get; set; }
 
     public void OnPlayerEnter(Node3D playerContainer)
     {

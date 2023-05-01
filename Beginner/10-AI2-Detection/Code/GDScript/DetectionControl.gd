@@ -2,7 +2,7 @@ extends Node
 class_name DetectionControl
 
 @export
-var enemyNavigationControl: EnemyNavigationControl;
+var enemyNavigationControl: EnemyCoreControl;
 
 func OnPlayerEnter(playerContainer:Node3D):
 	enemyNavigationControl.TargetBody = playerContainer;

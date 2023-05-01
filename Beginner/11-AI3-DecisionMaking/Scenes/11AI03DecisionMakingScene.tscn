@@ -1,0 +1,710 @@
+[gd_scene load_steps=29 format=3 uid="uid://ba0tmndmri1pi"]
+
+[ext_resource type="Script" path="res://Universal/Code/Helpers/MouseLock.gd" id="1_msufk"]
+[ext_resource type="Script" path="res://Beginner/11-AI3-DecisionMaking/Code/C#/EnemyCoreControl.cs" id="2_td33q"]
+[ext_resource type="Script" path="res://Beginner/08-Groups-Signals/Code/GDScript/DamageableEventNode.gd" id="3_5r5w0"]
+[ext_resource type="Material" uid="uid://xsxnx6oi70qn" path="res://Universal/Materials/BaddieStandard.tres" id="4_yto1v"]
+[ext_resource type="Material" uid="uid://3q7d66k06i7t" path="res://Universal/Materials/BaddieHit.tres" id="5_04rg7"]
+[ext_resource type="Material" uid="uid://bmrm26q76jjub" path="res://Beginner/05-Raycasting-Part2/Materials/BaddieStandard.tres" id="6_g2hxv"]
+[ext_resource type="Script" path="res://Beginner/10-AI2-Detection/Code/C#/DetectionControl.cs" id="7_frn1a"]
+[ext_resource type="Script" path="res://Beginner/01-Movement/Code/GDScript/PlayerMovement.gd" id="8_0e5lb"]
+[ext_resource type="PackedScene" uid="uid://desa4qpbneuji" path="res://Universal/Meshes/BoxScene.tscn" id="9_lhn42"]
+[ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/GDScript/CameraPivot.gd" id="10_8xk4e"]
+[ext_resource type="Script" path="res://Beginner/03-Raycasting/Code/GDScript/CameraCollider.gd" id="11_ffyge"]
+[ext_resource type="Script" path="res://Beginner/07-Audio/Code/GDScript/BlasterControllerv2.gd" id="12_drex0"]
+[ext_resource type="AudioStream" uid="uid://bgs2jm74tnwkq" path="res://Beginner/07-Audio/AudioClips/BlasterClip_NoxSound.wav" id="13_6y5rb"]
+[ext_resource type="PackedScene" uid="uid://dg6qanf3qnjuk" path="res://Universal/Meshes/laser.tscn" id="14_me6jw"]
+[ext_resource type="Script" path="res://Beginner/08-Groups-Signals/Code/GDScript/PointsContainer.gd" id="15_bxxwu"]
+[ext_resource type="Script" path="res://Beginner/10-AI2-Detection/Code/C#/PlayerDetectionControl.cs" id="16_sfw6s"]
+[ext_resource type="AudioStream" uid="uid://ch38je6e341s1" path="res://Beginner/07-Audio/AudioClips/AmbientWind_NoxSound.wav" id="17_6m4ic"]
+[ext_resource type="AudioStream" uid="uid://b3phsx4jisb37" path="res://Beginner/07-Audio/AudioClips/AmbientMusic_Unfa.wav" id="18_pknlt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ygepp"]
+size = Vector3(3.10831, 5.32828, 3.50174)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8owuf"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7hbkl"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 67.09
+dof_blur_far_transition = 3.66
+dof_blur_near_enabled = true
+dof_blur_near_distance = 3.07
+dof_blur_near_transition = 2.72
+dof_blur_amount = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8j303"]
+radius = 8.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kjk2r"]
+sky_top_color = Color(0.643137, 0.678431, 0.764706, 1)
+sky_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+ground_bottom_color = Color(0.443137, 0.458824, 0.533333, 1)
+ground_horizon_color = Color(0.752941, 0.831373, 0.956863, 1)
+
+[sub_resource type="Sky" id="Sky_o0ja8"]
+sky_material = SubResource("ProceduralSkyMaterial_kjk2r")
+
+[sub_resource type="Environment" id="Environment_nkm8w"]
+background_mode = 2
+sky = SubResource("Sky_o0ja8")
+tonemap_mode = 3
+ssao_enabled = true
+ssao_radius = 3.03
+ssao_intensity = 1.26
+glow_enabled = true
+glow_intensity = 2.97
+glow_strength = 1.57
+adjustment_enabled = true
+adjustment_saturation = 1.2
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_oa2gd"]
+vertices = PackedVector3Array(-1.77897, -3.30445, -113.929, -9.77897, -3.30445, -113.929, -9.77897, -3.30445, -102.929, 22.971, -3.30445, -102.929, 22.971, -3.30445, -113.929, 14.721, -3.30445, -113.929, -9.77897, -3.30445, -36.9294, -9.77897, -3.30445, -25.6794, -1.77897, -3.30445, -25.6794, 14.721, -3.30445, -25.6794, 22.971, -3.30445, -25.6794, 22.971, -3.30445, -36.9294, 6.47103, -3.30445, -113.929, -1.77897, -3.30445, -113.929, -9.77897, -3.30445, -102.929, -9.77897, -3.30445, -91.9294, -9.77897, -3.30445, -36.9294, -1.77897, -3.30445, -25.6794, 6.47103, -3.30445, -25.6794, -9.77897, -3.30445, -47.9294, 22.971, -3.30445, -102.929, 14.721, -3.30445, -113.929, 6.47103, -3.30445, -113.929, 22.971, -3.30445, -91.9294, 6.47103, -3.30445, -25.6794, 14.721, -3.30445, -25.6794, 22.971, -3.30445, -36.9294, 22.971, -3.30445, -47.9294, -9.77897, -3.30445, -47.9294, 6.47103, -3.30445, -25.6794, 22.971, -3.30445, -47.9294, 22.971, -3.30445, -58.9294, -9.77897, -3.30445, -58.9294, 22.971, -3.30445, -69.9294, 22.971, -3.30445, -80.9294, -9.77897, -3.30445, -80.9294, -9.77897, -3.30445, -69.9294, 22.971, -3.30445, -91.9294, 6.47103, -3.30445, -113.929, -9.77897, -3.30445, -91.9294, -9.77897, -3.30445, -80.9294, 22.971, -3.30445, -80.9294, -9.77897, -3.30445, -69.9294, -9.77897, -3.30445, -58.9294, 22.971, -3.30445, -58.9294, 22.971, -3.30445, -69.9294, -38.529, -9.05445, -52.6794, -46.529, -9.05445, -52.6794, -46.529, -9.05445, -45.6794, -13.779, -9.05445, -45.9294, -13.779, -9.05445, -52.6794, -22.029, -9.05445, -52.6794, -13.779, -9.05445, -38.9294, -13.779, -9.05445, -45.9294, -22.029, -9.05445, -52.6794, -38.529, -9.05445, -52.6794, -46.529, -9.05445, -45.6794, -46.529, -9.05445, -38.6794, -30.279, -9.05445, -52.6794, -38.529, -9.05445, -52.6794, -46.529, -9.05445, -38.6794, -46.529, -9.05445, -31.6794, -13.779, -9.05445, -38.9294, -22.029, -9.05445, -52.6794, -30.279, -9.05445, -52.6794, -13.779, -9.05445, -31.9294, -13.779, -9.05445, -24.9294, -13.779, -9.05445, -31.9294, -30.279, -9.05445, -52.6794, -46.529, -9.05445, -31.6794, -46.529, -9.05445, -24.6794, 34.971, -9.05445, -52.6794, 26.971, -9.05445, -52.6794, 26.971, -9.05445, -45.9294, 59.471, -9.05445, -45.9294, 59.471, -9.05445, -52.6794, 51.221, -9.05445, -52.6794, 34.971, -9.05445, -52.6794, 26.971, -9.05445, -45.9294, 26.971, -9.05445, -39.1794, 59.471, -9.05445, -39.1794, 59.471, -9.05445, -45.9294, 51.221, -9.05445, -52.6794, 59.471, -9.05445, -39.1794, 51.221, -9.05445, -52.6794, 43.221, -9.05445, -52.6794, 59.471, -9.05445, -32.4294, 43.221, -9.05445, -52.6794, 34.971, -9.05445, -52.6794, 26.971, -9.05445, -39.1794, 26.971, -9.05445, -32.4294, 26.971, -9.05445, -25.4294, 59.471, -9.05445, -25.4294, 59.471, -9.05445, -32.4294, 43.221, -9.05445, -52.6794, 26.971, -9.05445, -32.4294, 25.221, -9.05445, -21.6794, 23.221, -9.05445, -21.6794, 23.221, -9.05445, -1.17941, 25.221, -9.05445, -1.17941, 26.971, -9.05445, 0.570587, 26.971, -9.05445, 2.57059, 59.471, -9.05445, 2.57059, 59.471, -9.05445, -4.42941, 26.221, -9.05445, -22.1794, 25.221, -9.05445, -21.6794, 25.221, -9.05445, -1.17941, 26.221, -9.05445, -0.679413, 59.471, -9.05445, -25.4294, 26.971, -9.05445, -25.4294, 26.971, -9.05445, -23.4294, 59.471, -9.05445, -18.4294, 26.971, -9.05445, -23.4294, 26.221, -9.05445, -22.1794, 26.221, -9.05445, -0.679413, 26.971, -9.05445, 0.570587, 59.471, -9.05445, -4.42941, 59.471, -9.05445, -11.4294, 26.971, -9.05445, -23.4294, 59.471, -9.05445, -11.4294, 59.471, -9.05445, -18.4294, -12.029, -9.05445, -1.17941, -10.029, -9.05445, -1.17941, -10.029, -9.05445, -21.6794, -12.029, -9.05445, -21.6794, -46.529, -9.05445, 1.82059, -13.779, -9.05445, 2.07059, -13.779, -9.05445, 0.570587, -46.529, -9.05445, -4.92941, -13.029, -9.05445, -0.679413, -12.029, -9.05445, -1.17941, -12.029, -9.05445, -21.6794, -13.029, -9.05445, -22.1794, -13.779, -9.05445, -23.4294, -13.779, -9.05445, -24.9294, -46.529, -9.05445, -24.6794, -46.529, -9.05445, -18.1794, -13.779, -9.05445, 0.570587, -13.029, -9.05445, -0.679413, -13.029, -9.05445, -22.1794, -13.779, -9.05445, -23.4294, -46.529, -9.05445, -11.4294, -46.529, -9.05445, -4.92941, -46.529, -9.05445, -18.1794, -46.529, -9.05445, -11.4294, -13.779, -9.05445, -23.4294, -1.77897, -9.05445, -21.6794, -10.029, -9.05445, -21.6794, -10.029, -9.05445, -1.17941, -1.77897, -9.05445, -1.17941, 14.721, -9.05445, -1.17941, 23.221, -9.05445, -1.17941, 23.221, -9.05445, -21.6794, 14.721, -9.05445, -21.6794, 6.47103, -9.05445, -21.6794, -1.77897, -9.05445, -21.6794, -1.77897, -9.05445, -1.17941, 6.47103, -9.05445, -1.17941, 6.47103, -9.05445, -1.17941, 14.721, -9.05445, -1.17941, 14.721, -9.05445, -21.6794, 6.47103, -9.05445, -21.6794, -46.529, -9.05445, 57.8206, -34.779, -9.05445, 57.8206, -34.279, -9.05445, 56.3206, -23.779, -9.05445, 54.0706, -13.779, -9.05445, 52.5706, -13.779, -9.05445, 46.0706, -46.529, -9.05445, 57.8206, -34.279, -9.05445, 56.3206, -33.279, -9.05445, 55.8206, -46.529, -9.05445, 50.8206, -46.529, -9.05445, 22.8206, -46.529, -9.05445, 29.8206, -13.779, -9.05445, 27.3206, -13.779, -9.05445, 20.8206, -23.779, -9.05445, 54.0706, -13.779, -9.05445, 46.0706, -13.779, -9.05445, 39.8206, -46.529, -9.05445, 43.8206, -46.529, -9.05445, 50.8206, -33.279, -9.05445, 55.8206, -23.779, -9.05445, 54.0706, -13.779, -9.05445, 39.8206, -13.779, -9.05445, 33.5706, -46.529, -9.05445, 36.8206, -46.529, -9.05445, 43.8206, -33.279, -9.05445, 55.8206, -46.529, -9.05445, 36.8206, -33.279, -9.05445, 55.8206, -23.779, -9.05445, 54.0706, -13.779, -9.05445, 33.5706, -13.779, -9.05445, 27.3206, -46.529, -9.05445, 29.8206, -46.529, -9.05445, 8.82059, -46.529, -9.05445, 15.8206, -13.779, -9.05445, 14.5706, -13.779, -9.05445, 8.32059, -46.529, -9.05445, 15.8206, -46.529, -9.05445, 22.8206, -13.779, -9.05445, 20.8206, -13.779, -9.05445, 14.5706, -13.779, -9.05445, 8.32059, -13.779, -9.05445, 2.07059, -46.529, -9.05445, 1.82059, -46.529, -9.05445, 8.82059, 59.471, -9.05445, 13.5706, 59.471, -9.05445, 2.57059, 26.971, -9.05445, 2.57059, 26.971, -9.05445, 13.5706, 59.471, -9.05445, 57.8206, 59.471, -9.05445, 46.8206, 26.971, -9.05445, 46.8206, 26.971, -9.05445, 57.8206, 59.471, -9.05445, 24.5706, 59.471, -9.05445, 13.5706, 26.971, -9.05445, 13.5706, 26.971, -9.05445, 24.5706, 59.471, -9.05445, 46.8206, 59.471, -9.05445, 35.5706, 26.971, -9.05445, 35.5706, 26.971, -9.05445, 46.8206, 59.471, -9.05445, 35.5706, 59.471, -9.05445, 24.5706, 26.971, -9.05445, 24.5706, 26.971, -9.05445, 35.5706, 59.471, -9.05445, 80.0706, 59.471, -9.05445, 69.0706, 26.971, -9.05445, 69.0706, 26.971, -9.05445, 80.0706, 26.971, -9.05445, 91.3206, 59.471, -9.05445, 91.3206, 59.471, -9.05445, 80.0706, 26.971, -9.05445, 80.0706, 26.971, -9.05445, 57.8206, 26.971, -9.05445, 69.0706, 59.471, -9.05445, 69.0706, 59.471, -9.05445, 57.8206, -9.77897, -3.30445, 67.3206, -5.27897, -3.05445, 67.3206, -5.52897, -3.30445, 66.0706, -9.77897, -3.30445, 67.3206, -5.52897, -3.30445, 66.0706, -5.02897, -3.30445, 65.0706, -9.77897, -3.30445, 67.3206, -5.02897, -3.30445, 65.0706, -4.02897, -3.05445, 64.5706, -9.77897, -3.30445, 59.0706, -2.02897, -3.30445, 65.0706, 22.971, -3.30445, 53.0706, 22.971, -3.30445, 44.5706, -9.77897, -3.30445, 59.0706, -4.02897, -3.05445, 64.5706, -2.02897, -3.30445, 65.0706, -9.77897, -3.30445, 51.0706, -1.77897, -3.30445, 2.82059, -9.77897, -3.30445, 2.82059, -9.77897, -3.30445, 10.8206, 22.971, -3.30445, 11.0706, 22.971, -3.30445, 2.82059, 14.721, -3.30445, 2.82059, 22.971, -3.30445, 27.8206, 22.971, -3.30445, 19.5706, 6.47103, -3.30445, 2.82059, -1.77897, -3.30445, 2.82059, -9.77897, -3.30445, 10.8206, -9.77897, -3.30445, 18.8206, 22.971, -3.30445, 11.0706, 14.721, -3.30445, 2.82059, 6.47103, -3.30445, 2.82059, 22.971, -3.30445, 19.5706, 6.47103, -3.30445, 2.82059, -1.77897, -3.30445, 2.82059, -9.77897, -3.30445, 18.8206, -9.77897, -3.30445, 26.8206, -9.77897, -3.30445, 43.0706, -9.77897, -3.30445, 51.0706, -2.02897, -3.30445, 65.0706, -9.77897, -3.30445, 35.0706, -9.77897, -3.30445, 43.0706, -2.02897, -3.30445, 65.0706, 22.971, -3.30445, 44.5706, 22.971, -3.30445, 36.3206, -0.778969, -3.30445, 70.3206, 22.971, -3.30445, 69.8206, 22.971, -3.30445, 61.3206, -2.02897, -3.30445, 65.0706, 22.971, -3.30445, 27.8206, 6.47103, -3.30445, 2.82059, -9.77897, -3.30445, 26.8206, -9.77897, -3.30445, 35.0706, 22.971, -3.30445, 36.3206, -2.02897, -3.30445, 65.0706, 22.971, -3.30445, 61.3206, 22.971, -3.30445, 53.0706, -5.27897, -3.05445, 67.3206, -9.77897, -3.30445, 67.3206, -9.77897, -3.30445, 71.0706, -5.27897, -3.05445, 67.3206, -9.77897, -3.30445, 71.0706, -10.279, -3.30445, 72.0706, -3.77897, -1.55445, 76.8206, -13.279, -3.80445, 72.0706, -13.779, -3.80445, 71.0706, -23.029, -7.05445, 58.0706, -31.779, -8.30445, 59.8206, -3.77897, -1.55445, 76.8206, -10.279, -3.30445, 72.0706, -12.279, -3.55445, 72.5706, -13.779, -1.55445, 89.3206, -2.52897, -0.0544491, 87.5706, -2.27897, -0.304449, 86.3206, -48.029, -9.05445, 74.0706, -49.529, -9.30445, 74.0706, -47.779, -7.80445, 84.5706, -46.529, -9.05445, 72.5706, -47.779, -7.80445, 84.5706, -35.279, -4.55445, 93.3206, -24.529, -3.05445, 91.3206, -13.279, -3.80445, 72.0706, -31.779, -8.30445, 59.8206, -13.779, -4.80445, 63.8206, -13.779, -5.80445, 56.5706, -23.029, -7.05445, 58.0706, -47.029, -9.05445, 73.5706, -48.029, -9.05445, 74.0706, -47.779, -7.80445, 84.5706, -46.529, -9.05445, 72.5706, -47.029, -9.05445, 73.5706, -47.779, -7.80445, 84.5706, -34.279, -8.80445, 59.3206, -34.779, -9.05445, 57.8206, -46.529, -9.05445, 57.8206, -46.529, -9.05445, 65.0706, -13.779, -1.55445, 89.3206, -12.279, -3.55445, 72.5706, -13.279, -3.80445, 72.0706, -24.529, -3.05445, 91.3206, -47.779, -7.80445, 84.5706, -46.029, -6.05445, 95.3206, -35.279, -4.55445, 93.3206, -31.779, -8.30445, 59.8206, -34.279, -8.80445, 59.3206, -46.529, -9.05445, 65.0706, -46.529, -9.05445, 72.5706, -39.7639, -9.05445, 64.0895, -13.779, -3.80445, 71.0706, -13.779, -4.80445, 63.8206, -23.029, -7.05445, 58.0706, -25.279, -9.05445, 62.0706, -26.279, -9.05445, 62.8206, -27.779, -9.05445, 65.3206, -27.779, -9.05445, 65.3206, -28.779, -9.05445, 66.0706, -31.029, -9.05445, 69.5706, -46.529, -9.05445, 89.3206, -45.529, -9.05445, 95.0706, -38.279, -9.05445, 93.8206, -42.529, -9.05445, 84.5706, -25.279, -9.05445, 62.0706, -27.779, -9.05445, 65.3206, -31.029, -9.05445, 69.5706, -38.279, -9.05445, 93.8206, -30.529, -9.05445, 92.8206, -26.529, -9.05445, 87.3206, -13.779, -9.05445, 64.0706, -13.779, -9.05445, 57.0706, -23.029, -9.05445, 58.5706, -25.279, -9.05445, 62.0706, -38.779, -9.05445, 79.5706, -42.529, -9.05445, 84.5706, -38.279, -9.05445, 93.8206, -26.529, -9.05445, 87.3206, -22.279, -9.05445, 81.8206, -31.029, -9.05445, 69.5706, -31.029, -9.05445, 69.5706, -35.029, -9.05445, 74.5706, -38.779, -9.05445, 79.5706, -18.029, -9.05445, 76.5706, -13.779, -9.05445, 71.0706, -13.779, -9.05445, 64.0706, -25.279, -9.05445, 62.0706, -31.029, -9.05445, 69.5706, -22.279, -9.05445, 81.8206, -51.029, -10.8044, 63.0706, -50.529, -10.5544, 66.3206, -50.529, -10.8044, 63.0706, 0.221031, -3.30445, 76.0706, 22.971, -3.30445, 75.8206, 22.971, -3.30445, 69.8206, -0.778969, -3.30445, 70.3206, 2.47103, -3.30445, 89.8206, 1.72103, -3.30445, 91.0706, 12.221, -3.30445, 91.0706, 2.47103, -3.30445, 87.5706, 2.47103, -3.30445, 89.8206, 12.221, -3.30445, 91.0706, 12.221, -3.30445, 91.0706, 22.971, -3.30445, 91.0706, 22.971, -3.30445, 83.3206, 12.221, -3.30445, 91.0706, 22.971, -3.30445, 83.3206, 22.971, -3.30445, 75.8206, 0.221031, -3.30445, 76.0706, 2.47103, -3.30445, 87.5706, -9.77897, -3.30445, 87.8206, -9.77897, -3.30445, 88.5706, -9.02897, -3.30445, 88.5706, -2.27897, -3.30445, 87.3206, -3.77897, -3.30445, 80.0706, -13.779, -9.05445, 93.3206, -14.029, -9.05445, 88.3206, -19.279, -9.05445, 95.0706, -13.279, -9.05445, 94.3206, -13.779, -9.05445, 93.3206, -19.279, -9.05445, 95.0706, -12.029, -9.05445, 95.0706, -13.279, -9.05445, 94.3206, -19.279, -9.05445, 95.0706, -22.529, -9.05445, 95.8206, -22.529, -9.05445, 95.8206, -22.279, -9.05445, 127.571, -16.279, -9.05445, 127.571, -10.029, -9.05445, 95.0706, -12.029, -9.05445, 95.0706, -22.529, -9.05445, 95.8206, -16.279, -9.05445, 127.571, -10.029, -9.05445, 127.571, 50.221, -9.05445, 127.571, 59.471, -9.05445, 127.571, 59.471, -9.05445, 118.321, 41.221, -9.05445, 127.571, 50.221, -9.05445, 127.571, 59.471, -9.05445, 118.321, 41.221, -9.05445, 127.571, 59.471, -9.05445, 118.321, 59.471, -9.05445, 109.321, 32.221, -9.05445, 127.571, 25.221, -9.05445, 95.0706, 23.221, -9.05445, 95.0706, 23.221, -9.05445, 127.571, 59.471, -9.05445, 91.3206, 26.971, -9.05445, 91.3206, 26.971, -9.05445, 93.3206, 59.471, -9.05445, 100.321, 26.221, -9.05445, 94.5706, 23.221, -9.05445, 127.571, 32.221, -9.05445, 127.571, 59.471, -9.05445, 109.321, 59.471, -9.05445, 100.321, 26.971, -9.05445, 93.3206, 26.221, -9.05445, 94.5706, 25.221, -9.05445, 95.0706, 23.221, -9.05445, 127.571, -1.77897, -9.05445, 95.0706, -10.029, -9.05445, 95.0706, -10.029, -9.05445, 127.571, -1.77897, -9.05445, 127.571, 14.721, -9.05445, 127.571, 23.221, -9.05445, 127.571, 23.221, -9.05445, 95.0706, 14.721, -9.05445, 95.0706, 6.47103, -9.05445, 95.0706, -1.77897, -9.05445, 95.0706, -1.77897, -9.05445, 127.571, 6.47103, -9.05445, 127.571, 6.47103, -9.05445, 127.571, 14.721, -9.05445, 127.571, 14.721, -9.05445, 95.0706, 6.47103, -9.05445, 95.0706, -28.029, -9.05445, 96.8206, -27.779, -9.05445, 127.571, -22.279, -9.05445, 127.571, -22.529, -9.05445, 95.8206, -46.529, -9.05445, 120.571, -46.529, -9.05445, 127.571, -37.279, -9.05445, 127.571, -37.279, -9.05445, 98.3206, -46.529, -9.05445, 99.8206, -46.529, -9.05445, 106.571, -46.529, -9.05445, 113.571, -46.529, -9.05445, 120.571, -37.279, -9.05445, 127.571, -37.279, -9.05445, 98.3206, -46.529, -9.05445, 106.571, -46.529, -9.05445, 113.571, -37.279, -9.05445, 127.571, -27.779, -9.05445, 127.571, -28.029, -9.05445, 96.8206)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(28, 32, 29), PackedInt32Array(29, 32, 30), PackedInt32Array(30, 32, 31), PackedInt32Array(36, 35, 33), PackedInt32Array(33, 35, 34), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 37), PackedInt32Array(40, 37, 41), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(48, 47, 46), PackedInt32Array(51, 50, 49), PackedInt32Array(54, 53, 52), PackedInt32Array(57, 56, 55), PackedInt32Array(60, 59, 61), PackedInt32Array(61, 59, 58), PackedInt32Array(62, 65, 63), PackedInt32Array(63, 65, 64), PackedInt32Array(67, 66, 68), PackedInt32Array(68, 66, 69), PackedInt32Array(69, 66, 70), PackedInt32Array(73, 72, 71), PackedInt32Array(76, 75, 74), PackedInt32Array(77, 79, 78), PackedInt32Array(82, 81, 80), PackedInt32Array(83, 86, 84), PackedInt32Array(84, 86, 85), PackedInt32Array(89, 88, 90), PackedInt32Array(90, 88, 87), PackedInt32Array(95, 94, 91), PackedInt32Array(91, 94, 93), PackedInt32Array(91, 93, 92), PackedInt32Array(99, 98, 96), PackedInt32Array(96, 98, 97), PackedInt32Array(101, 100, 102), PackedInt32Array(102, 100, 103), PackedInt32Array(105, 104, 106), PackedInt32Array(106, 104, 107), PackedInt32Array(109, 108, 110), PackedInt32Array(110, 108, 111), PackedInt32Array(113, 112, 114), PackedInt32Array(114, 112, 115), PackedInt32Array(115, 112, 117), PackedInt32Array(115, 117, 116), PackedInt32Array(120, 119, 118), PackedInt32Array(124, 123, 121), PackedInt32Array(121, 123, 122), PackedInt32Array(126, 125, 127), PackedInt32Array(127, 125, 128), PackedInt32Array(130, 129, 131), PackedInt32Array(131, 129, 132), PackedInt32Array(134, 133, 135), PackedInt32Array(135, 133, 136), PackedInt32Array(138, 137, 139), PackedInt32Array(139, 137, 140), PackedInt32Array(140, 137, 141), PackedInt32Array(141, 137, 142), PackedInt32Array(145, 144, 143), PackedInt32Array(149, 148, 146), PackedInt32Array(146, 148, 147), PackedInt32Array(153, 152, 150), PackedInt32Array(150, 152, 151), PackedInt32Array(157, 156, 154), PackedInt32Array(154, 156, 155), PackedInt32Array(161, 160, 158), PackedInt32Array(158, 160, 159), PackedInt32Array(164, 163, 162), PackedInt32Array(167, 166, 165), PackedInt32Array(169, 168, 170), PackedInt32Array(170, 168, 171), PackedInt32Array(175, 174, 172), PackedInt32Array(172, 174, 173), PackedInt32Array(177, 176, 178), PackedInt32Array(181, 180, 179), PackedInt32Array(184, 183, 182), PackedInt32Array(187, 186, 185), PackedInt32Array(191, 190, 192), PackedInt32Array(192, 190, 189), PackedInt32Array(192, 189, 188), PackedInt32Array(192, 188, 193), PackedInt32Array(197, 196, 194), PackedInt32Array(194, 196, 195), PackedInt32Array(201, 200, 198), PackedInt32Array(198, 200, 199), PackedInt32Array(203, 202, 204), PackedInt32Array(204, 202, 205), PackedInt32Array(209, 208, 206), PackedInt32Array(206, 208, 207), PackedInt32Array(213, 212, 210), PackedInt32Array(210, 212, 211), PackedInt32Array(217, 216, 214), PackedInt32Array(214, 216, 215), PackedInt32Array(221, 220, 218), PackedInt32Array(218, 220, 219), PackedInt32Array(225, 224, 222), PackedInt32Array(222, 224, 223), PackedInt32Array(229, 228, 226), PackedInt32Array(226, 228, 227), PackedInt32Array(233, 232, 230), PackedInt32Array(230, 232, 231), PackedInt32Array(237, 236, 234), PackedInt32Array(234, 236, 235), PackedInt32Array(240, 239, 238), PackedInt32Array(243, 242, 241), PackedInt32Array(245, 244, 246), PackedInt32Array(246, 244, 247), PackedInt32Array(250, 249, 248), PackedInt32Array(252, 251, 253), PackedInt32Array(253, 251, 254), PackedInt32Array(257, 256, 255), PackedInt32Array(260, 259, 258), PackedInt32Array(263, 262, 261), PackedInt32Array(266, 265, 264), PackedInt32Array(268, 267, 269), PackedInt32Array(269, 267, 270), PackedInt32Array(272, 271, 273), PackedInt32Array(273, 271, 274), PackedInt32Array(277, 276, 275), PackedInt32Array(279, 278, 280), PackedInt32Array(280, 278, 281), PackedInt32Array(281, 278, 282), PackedInt32Array(283, 286, 284), PackedInt32Array(284, 286, 285), PackedInt32Array(289, 288, 290), PackedInt32Array(290, 288, 287), PackedInt32Array(290, 287, 291), PackedInt32Array(294, 293, 292), PackedInt32Array(297, 296, 295), PackedInt32Array(299, 298, 300), PackedInt32Array(300, 298, 301), PackedInt32Array(303, 302, 304), PackedInt32Array(304, 302, 305), PackedInt32Array(307, 306, 308), PackedInt32Array(308, 306, 311), PackedInt32Array(308, 311, 310), PackedInt32Array(308, 310, 309), PackedInt32Array(314, 313, 312), PackedInt32Array(317, 316, 318), PackedInt32Array(318, 316, 315), PackedInt32Array(318, 315, 320), PackedInt32Array(318, 320, 319), PackedInt32Array(323, 322, 321), PackedInt32Array(326, 325, 324), PackedInt32Array(329, 328, 327), PackedInt32Array(331, 330, 332), PackedInt32Array(332, 330, 333), PackedInt32Array(335, 334, 336), PackedInt32Array(336, 334, 337), PackedInt32Array(340, 339, 338), PackedInt32Array(343, 345, 344), PackedInt32Array(344, 345, 341), PackedInt32Array(341, 345, 342), PackedInt32Array(342, 345, 343), PackedInt32Array(348, 347, 346), PackedInt32Array(351, 350, 349), PackedInt32Array(354, 353, 352), PackedInt32Array(356, 355, 357), PackedInt32Array(357, 355, 358), PackedInt32Array(361, 360, 359), PackedInt32Array(364, 363, 362), PackedInt32Array(367, 366, 368), PackedInt32Array(368, 366, 365), PackedInt32Array(370, 369, 371), PackedInt32Array(371, 369, 372), PackedInt32Array(372, 369, 373), PackedInt32Array(373, 369, 374), PackedInt32Array(377, 376, 375), PackedInt32Array(379, 378, 380), PackedInt32Array(380, 378, 383), PackedInt32Array(380, 383, 381), PackedInt32Array(381, 383, 382), PackedInt32Array(386, 385, 384), PackedInt32Array(388, 387, 389), PackedInt32Array(389, 387, 390), PackedInt32Array(393, 392, 391), PackedInt32Array(396, 395, 394), PackedInt32Array(399, 398, 397), PackedInt32Array(401, 400, 402), PackedInt32Array(402, 400, 404), PackedInt32Array(402, 404, 403), PackedInt32Array(406, 405, 407), PackedInt32Array(407, 405, 408), PackedInt32Array(408, 405, 409), PackedInt32Array(412, 411, 410), PackedInt32Array(413, 415, 414), PackedInt32Array(417, 416, 418), PackedInt32Array(418, 416, 419), PackedInt32Array(422, 421, 420), PackedInt32Array(424, 423, 425), PackedInt32Array(425, 423, 426), PackedInt32Array(426, 423, 427), PackedInt32Array(430, 429, 428), PackedInt32Array(433, 432, 431), PackedInt32Array(435, 434, 436), PackedInt32Array(436, 434, 437), PackedInt32Array(440, 439, 438), PackedInt32Array(442, 441, 443), PackedInt32Array(443, 441, 444), PackedInt32Array(450, 449, 445), PackedInt32Array(445, 449, 448), PackedInt32Array(445, 448, 447), PackedInt32Array(445, 447, 446), PackedInt32Array(453, 452, 451), PackedInt32Array(457, 456, 454), PackedInt32Array(454, 456, 455), PackedInt32Array(461, 460, 458), PackedInt32Array(458, 460, 459), PackedInt32Array(465, 464, 462), PackedInt32Array(462, 464, 463), PackedInt32Array(469, 468, 466), PackedInt32Array(466, 468, 467), PackedInt32Array(471, 470, 472), PackedInt32Array(472, 470, 473), PackedInt32Array(476, 475, 474), PackedInt32Array(479, 478, 477), PackedInt32Array(482, 481, 480), PackedInt32Array(484, 483, 485), PackedInt32Array(485, 483, 488), PackedInt32Array(485, 488, 486), PackedInt32Array(486, 488, 487)]
+agent_radius = 2.0
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_ly54c"]
+albedo_color = Color(0.337255, 0.568627, 0.305882, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7c2nd"]
+
+[node name="11AI03DecisionMaking" type="Node3D"]
+script = ExtResource("1_msufk")
+
+[node name="Enemy" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.4013, -3.71973, 13.0484)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy2" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.141, -3.71973, 4.03158)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy2/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy2/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy2"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy3" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.141, -3.71973, 26.0316)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy3/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy3/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy3"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy4" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.141, -3.71973, 33.0316)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy4/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy4/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy4"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy5" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.141, -3.71973, 48.0316)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy5/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy5/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy5"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy6" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.6173, -3.71973, 43.5426)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy6/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy6/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy6"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy7" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91788, -8.82656, -11.8117)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy7/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy7/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy7"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy8" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.17818, -8.82656, -20.8286)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy8/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy8/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy8/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy8/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy8"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy9" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1782, -8.82656, 1.17141)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy9/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy9/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy9/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy9/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy9"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy10" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.178185, -8.82656, 8.17141)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy10/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy10/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy10/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy10/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy10"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy11" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1782, -8.82656, 23.1714)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy11/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy11/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy11/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy11/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy11"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="Enemy12" type="Node3D" parent="." node_paths=PackedStringArray("NavigationAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29821, -8.82656, 18.6824)
+script = ExtResource("2_td33q")
+NavigationAgent = NodePath("NavigationAgent3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Enemy12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.450775, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy12/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98761, 0)
+shape = SubResource("BoxShape3D_ygepp")
+
+[node name="Damageable" type="Node" parent="Enemy12/StaticBody3D" node_paths=PackedStringArray("ContainerNode", "MeshReference") groups=["DamageableNodes"]]
+script = ExtResource("3_5r5w0")
+TransitionType = 1
+ScaleSize = Vector3(1.2, 1.2, 1.2)
+RotationDegrees = 5.0
+HitPoints = 3
+ContainerNode = NodePath("../..")
+MeshReference = NodePath("../Enemy")
+BaseMaterial = ExtResource("4_yto1v")
+HitMaterial = ExtResource("5_04rg7")
+FlashDuration = 0.2
+
+[node name="Enemy" type="CSGBox3D" parent="Enemy12/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = ExtResource("6_g2hxv")
+size = Vector3(2.90798, 5.28556, 3.49502)
+
+[node name="Detection" type="Node" parent="Enemy12/StaticBody3D" node_paths=PackedStringArray("enemyNavigationControl")]
+script = ExtResource("7_frn1a")
+enemyNavigationControl = NodePath("../..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy12"]
+avoidance_enabled = true
+radius = 2.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.247625, 0, 0.968856, 0, 1, 0, -0.968856, 0, 0.247625, 45.1098, -8.3912, -17.3348)
+collision_layer = 2
+script = ExtResource("8_0e5lb")
+mouseSensitivity = 0.3
+
+[node name="BoxMesh" parent="CharacterBody3D" instance=ExtResource("9_lhn42")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0254078, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_8owuf")
+
+[node name="CameraPivot" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29956, 0)
+script = ExtResource("10_8xk4e")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.97135, 0.237652, 0, -0.237652, 0.97135, 1.50056, 3.76422, 10.9406)
+attributes = SubResource("CameraAttributesPractical_7hbkl")
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.943495, 0.331387, 0, -0.331387, 0.943495, 1.50056, -0.18728, 0.0657791)
+target_position = Vector3(0, 0, 9.263)
+
+[node name="CameraCollider" type="Node3D" parent="CharacterBody3D/CameraPivot" node_paths=PackedStringArray("cameraNode", "rayCast3D")]
+script = ExtResource("11_ffyge")
+cameraNode = NodePath("../Camera3D")
+rayCast3D = NodePath("../RayCast3D")
+CameraColliderLayers = 1
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CharacterBody3D/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.994493, 0.104806, 0, -0.104806, 0.994493, 0.970976, -1.0516, -0.82544)
+size = Vector3(0.254813, 0.425346, 1.79341)
+
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
+transform = Transform3D(1, -3.72529e-09, 0, 0, 1, 1.16415e-08, 0, -2.79397e-09, 1, 0, 0, -1)
+target_position = Vector3(0, 0, -100)
+
+[node name="BlasterController" type="Node" parent="CharacterBody3D/CameraPivot/CSGBox3D" node_paths=PackedStringArray("BlasterAudio", "rayCastController")]
+script = ExtResource("12_drex0")
+BlasterAudio = NodePath("../AudioStreamPlayer3D")
+BlasterShotClip = ExtResource("13_6y5rb")
+MinBlasterPitchChange = 1.0
+MaxBlasterPitchChange = 1.2
+rayCastController = NodePath("../RayCast3D")
+laserEffect = ExtResource("14_me6jw")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="CharacterBody3D/CameraPivot/CSGBox3D"]
+stream = ExtResource("13_6y5rb")
+bus = &"Blaster"
+
+[node name="ScoreUIContainer" type="Control" parent="CharacterBody3D" node_paths=PackedStringArray("ScoreLabel", "VictoryLabel") groups=["ScoringGroup"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_bxxwu")
+ScoreLabel = NodePath("ScoreLabel")
+VictoryLabel = NodePath("VictoryLabel")
+
+[node name="ScoreLabel" type="Label" parent="CharacterBody3D/ScoreUIContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Score:0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="VictoryLabel" type="Label" parent="CharacterBody3D/ScoreUIContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Congratulations you won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="PlayerDetectionRadius" type="Area3D" parent="CharacterBody3D" node_paths=PackedStringArray("PlayerContainer")]
+script = ExtResource("16_sfw6s")
+PlayerContainer = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/PlayerDetectionRadius"]
+shape = SubResource("SphereShape3D_8j303")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nkm8w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.487555, 0.873092, 0, -0.873092, 0.487555, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_6m4ic")
+autoplay = true
+bus = &"WorldAmb"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_pknlt")
+autoplay = true
+bus = &"MusicAmb"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.752, 0, -7.5743)
+navigation_mesh = SubResource("NavigationMesh_oa2gd")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(109.862, 0, 0, 0, 1, 0, 0, 0, 92.075, 6.599, -10, -8.54721)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(109.862, 0, 0, 0, 1, 0, 0, 0, 92.075, 6.599, -10, 83.5278)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(36.6208, 0, 0, 0, 5, 0, 0, 0, 92.075, 6.60265, -6.16742, -69.8919)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(36.6208, 0, 0, 0, 5, 0, 0, 0, 92.075, 6.60265, -6.16742, 46.9556)
+material_override = SubResource("ORMMaterial3D_ly54c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_7c2nd")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-5.70907, -0.790557, 89.7766, -5.34455, 4.8998, 12.4831, -35.7761, -0.60582, -16.1912, -26.2866, -8.38096, 75.5769)
+material_override = SubResource("ORMMaterial3D_ly54c")
+size = Vector3(1, 1, 0.528926)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D5/StaticBody3D"]
+transform = Transform3D(1, 5.80442e-10, 2.98023e-08, 1.34884e-08, 1, -3.61513e-07, 0, -9.23168e-10, 0.530294, 0, 0, 0)
+shape = SubResource("BoxShape3D_7c2nd")
+
+[connection signal="OnDestruction" from="Enemy/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy/NavigationAgent3D" to="Enemy" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy2/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy2/NavigationAgent3D" to="Enemy2" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy3/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy3/NavigationAgent3D" to="Enemy3" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy4/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy4/NavigationAgent3D" to="Enemy4" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy5/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy5/NavigationAgent3D" to="Enemy5" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy6/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy6/NavigationAgent3D" to="Enemy6" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy7/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy7/NavigationAgent3D" to="Enemy7" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy8/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy8/NavigationAgent3D" to="Enemy8" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy9/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy9/NavigationAgent3D" to="Enemy9" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy10/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy10/NavigationAgent3D" to="Enemy10" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy11/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy11/NavigationAgent3D" to="Enemy11" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="OnDestruction" from="Enemy12/StaticBody3D/Damageable" to="CharacterBody3D/ScoreUIContainer" method="OnVictory"]
+[connection signal="velocity_computed" from="Enemy12/NavigationAgent3D" to="Enemy12" method="On_NavigationAgent3DVelocityComputed"]
+[connection signal="body_entered" from="CharacterBody3D/PlayerDetectionRadius" to="CharacterBody3D/PlayerDetectionRadius" method="OnAreaEnter"]
+[connection signal="body_exited" from="CharacterBody3D/PlayerDetectionRadius" to="CharacterBody3D/PlayerDetectionRadius" method="OnAreaExit"]

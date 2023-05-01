@@ -1,2 +1,0 @@
-﻿49352
-F:/Workspace-Backedup/GodotProjects/0-GodotEditor/EngineCache/Godot_v4.0.2-stable_mono_win64/Godot_v4.0.2-stable_mono_win64.exe
