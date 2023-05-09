@@ -12,7 +12,7 @@ config_version=5
 
 config/name="EducationProject"
 config/description="Godot tutorial Series"
-run/main_scene="res://Beginner/12-AI4-Attacking/Scenes/12AI04AttackingScene.tscn"
+run/main_scene="res://Beginner/13-AI5-NpcDamaging/Scenes/13AI05DamagingScene.tscn"
 config/features=PackedStringArray("4.0", "C#")
 config/icon="res://icon.png"
 

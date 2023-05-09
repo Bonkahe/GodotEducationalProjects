@@ -1,9 +1,10 @@
+RayCast3D
 Node
+MeshInstance3D
 GPUParticles3D
 Area3D
 CollisionShape3D
 StaticBody3D
-MeshInstance3D
 NavigationAgent3D
 NavigationRegion3D
 Node3D
@@ -12,7 +13,6 @@ Button
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D
-RayCast3D
 CSGBox3D
 OmniLight3D
 CSGCylinder3D

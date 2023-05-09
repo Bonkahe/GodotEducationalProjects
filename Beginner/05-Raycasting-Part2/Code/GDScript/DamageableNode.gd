@@ -2,7 +2,7 @@ extends Node
 class_name DamageableNode
 
 @export
-var MeshReference: GeometryInstance3D;
+var MeshReference: MeshInstance3D;
 @export
 var BaseMaterial: Material;
 @export

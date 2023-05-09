@@ -99,11 +99,13 @@ func OnHit():
 		OriginalScale,
 		FlashDuration / 2);
 	
-	newTween.connect("finished", OnReset.bind());
+	
 	if (EndOfGame):
 		newTween.connect("finished", OnCompleteDestruction.bind());
 	else:
+		newTween.connect("finished", OnReset.bind());
 		if (HitPoints <= 0):
+			newTween.connect("finished", OnCompleteDestruction.bind());
 			OnDestruction.emit();
 		else:
 			get_tree().call_group("ScoringGroup", "OnPointsAdded", 1);

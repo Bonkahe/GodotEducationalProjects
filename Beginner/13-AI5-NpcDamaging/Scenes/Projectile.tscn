@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://cy7khtorye7ht"]
+
+[ext_resource type="Script" path="res://Beginner/12-AI4-Attacking/Code/GDScript/EnemyProjectileControl.gd" id="1_ekbya"]
+[ext_resource type="Texture2D" uid="uid://cq0o1w2e15ybt" path="res://Beginner/12-AI4-Attacking/Textures/Projectile.png" id="2_jxwb0"]
+[ext_resource type="Script" path="res://Beginner/13-AI5-NpcDamaging/Code/GDScript/ProjectileCollision.gd" id="3_y4nuc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1586c"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_jxwb0")
+emission_enabled = true
+emission = Color(0.384314, 0.384314, 0.384314, 1)
+emission_energy_multiplier = 13.48
+emission_operator = 1
+emission_texture = ExtResource("2_jxwb0")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.5
+
+[sub_resource type="Gradient" id="Gradient_qrhl7"]
+offsets = PackedFloat32Array(0, 0.337912, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.729412, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ntv2"]
+gradient = SubResource("Gradient_qrhl7")
+
+[sub_resource type="Curve" id="Curve_11cr6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.281818), -1.53896, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y0yl7"]
+curve = SubResource("Curve_11cr6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0glgx"]
+emission_shape = 1
+emission_sphere_radius = 0.05
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.01
+initial_velocity_max = 0.01
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+radial_accel_min = -1.0
+radial_accel_max = 1.0
+tangential_accel_min = 1.0
+tangential_accel_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 2.5
+scale_max = 2.75
+scale_curve = SubResource("CurveTexture_y0yl7")
+color = Color(0.937255, 0.729412, 0.533333, 1)
+color_ramp = SubResource("GradientTexture1D_7ntv2")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+turbulence_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_ghm1a"]
+
+[sub_resource type="Gradient" id="Gradient_8hehy"]
+offsets = PackedFloat32Array(0, 0.337912, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h7htq"]
+gradient = SubResource("Gradient_8hehy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tpq7h"]
+emission_shape = 1
+emission_sphere_radius = 0.05
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.01
+initial_velocity_max = 0.01
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+radial_accel_min = -1.0
+radial_accel_max = 1.0
+tangential_accel_min = 1.0
+tangential_accel_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 3.0
+scale_max = 3.25
+color = Color(0.937255, 0.729412, 0.533333, 1)
+color_ramp = SubResource("GradientTexture1D_h7htq")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="Projectile" type="Node3D"]
+script = ExtResource("1_ekbya")
+moveSpeed = 60.0
+lifeTime = 3.0
+
+[node name="ParticlesTrail" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_1586c")
+amount = 100
+lifetime = 1.5
+preprocess = 11.5
+process_material = SubResource("ParticleProcessMaterial_0glgx")
+draw_pass_1 = SubResource("QuadMesh_ghm1a")
+
+[node name="ParticlesOrb" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_1586c")
+amount = 25
+lifetime = 0.05
+explosiveness = 0.07
+randomness = 0.46
+process_material = SubResource("ParticleProcessMaterial_tpq7h")
+draw_pass_1 = SubResource("QuadMesh_ghm1a")
+
+[node name="ProjectileCollision" type="Node" parent="." node_paths=PackedStringArray("projectileControl", "rayCast")]
+script = ExtResource("3_y4nuc")
+projectileControl = NodePath("..")
+rayCast = NodePath("../RayCast3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+collision_mask = 2

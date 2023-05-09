@@ -26,8 +26,8 @@ public partial class DamageableEventNode : DamageableNode
 
     public override void _Ready()
     {
-		OriginalPosition = MeshReference.GlobalPosition;
-        OriginalRotation = MeshReference.GlobalRotationDegrees;
+		OriginalPosition = MeshReference.Position;
+        OriginalRotation = MeshReference.RotationDegrees;
         OriginalScale = MeshReference.Scale;
     }
 
@@ -60,8 +60,8 @@ public partial class DamageableEventNode : DamageableNode
 
 		newTween.TweenProperty(
 			MeshReference,
-			"global_position",
-			MeshReference.GlobalPosition + new Vector3(0, 1, 0),
+			"position",
+            OriginalPosition + new Vector3(0, 1, 0),
 			FlashDuration / 2);
 
         RandomNumberGenerator rng = new RandomNumberGenerator();
@@ -70,7 +70,7 @@ public partial class DamageableEventNode : DamageableNode
         newTween.Parallel();
         newTween.TweenProperty(
             MeshReference,
-            "global_rotation_degrees",
+            "rotation_degrees",
             OriginalRotation
                 + new Vector3(
                     Mathf.Wrap(rng.RandfRange(-RotationDegrees, RotationDegrees), -180, 180),
@@ -89,7 +89,7 @@ public partial class DamageableEventNode : DamageableNode
 
         newTween.TweenProperty(
             MeshReference,
-            "global_position",
+            "position",
             OriginalPosition,
             FlashDuration / 2);
 
@@ -97,7 +97,7 @@ public partial class DamageableEventNode : DamageableNode
         newTween.Parallel();
         newTween.TweenProperty(
             MeshReference,
-            "global_rotation_degrees",
+            "rotation_degrees",
             OriginalRotation,
             FlashDuration / 2);
 
@@ -117,6 +117,7 @@ public partial class DamageableEventNode : DamageableNode
             newTween.Connect("finished", new Callable(this, "OnReset"));
             if (HitPoints <= 0)
             {
+                newTween.Connect("finished", Callable.From(() => OnCompleteDestruction()));
                 EmitSignal(SignalName.OnDestruction);
             }
             else

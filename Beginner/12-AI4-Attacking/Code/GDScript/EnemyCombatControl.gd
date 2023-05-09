@@ -4,6 +4,7 @@ extends Node
 @export
 var enemyCoreControl: EnemyCoreControl;
 
+
 @export
 var thisDamageable: Node;
 

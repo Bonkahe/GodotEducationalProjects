@@ -1,6 +1,10 @@
 res://default_bus_layout.tres
+res://Beginner/13-AI5-NpcDamaging/Scenes/Projectile.tscn
+res://Beginner/13-AI5-NpcDamaging/Scenes/13AI05DamagingScene.tscn
+res://Beginner/05-Raycasting-Part2/Code/GDScript/DamageableNode.gd
 res://Beginner/12-AI4-Attacking/Scenes/Projectile.tscn
-res://Beginner/12-AI4-Attacking/Code/GDScript/EnemyCombatControl.gd
-res://Beginner/11-AI3-DecisionMaking/Code/GDScript/EnemyCoreControl.gd
+res://Beginner/13-AI5-NpcDamaging/Code/GDScript/ProjectileCollision.gd
 res://Beginner/12-AI4-Attacking/Code/GDScript/EnemyProjectileControl.gd
-res://Beginner/12-AI4-Attacking/Scenes/12AI04AttackingScene.tscn
+res://Beginner/13-AI5-NpcDamaging/Code/GDScript/ProjectileControl.gd
+res://Beginner/12-AI4-Attacking/Code/GDScript/EnemyCombatControl.gd
+res://Beginner/08-Groups-Signals/Code/GDScript/DamageableEventNode.gd

@@ -3,7 +3,7 @@ using System;
 
 public partial class DamageableNode : Node
 {
-	[Export] public GeometryInstance3D MeshReference;
+	[Export] public MeshInstance3D MeshReference;
 	[Export] public Material BaseMaterial;
     [Export] public Material HitMaterial;
 
